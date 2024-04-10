@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Transcription Display</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/shoelace-autoloader.js"></script>
+    
+</head>
+<body>
+
+<div id="app" style="text-align:center; margin-top:50px;">
+    <sl-button id="start-recording" variant="primary">Start Recording</sl-button>
+    <sl-button id="connect-websocket" variant="success">Connect to WebSocket</sl-button>
+    <div id="transcriptions" style="margin-top:20px;"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
