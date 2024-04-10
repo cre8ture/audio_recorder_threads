@@ -14,11 +14,8 @@ def capture_audio(duration=5, fs=44100):
     recording = sd.rec(int(duration * fs), samplerate=fs, channels=2, dtype='int16')
     sd.wait()  # Wait for the recording to finish
     return recording, fs
-
-
 def transcribe_audio(recording, fs):
     recognizer = sr.Recognizer()
-    # Create a temporary file securely, then close it to avoid locking issues.
     fd, tmp_filename = mkstemp(suffix=".wav")
     os.close(fd)
 
@@ -26,13 +23,14 @@ def transcribe_audio(recording, fs):
         write(tmp_filename, fs, recording)  # Save the recording to a temporary file.
         with sr.AudioFile(tmp_filename) as source:
             audio_data = recognizer.record(source)
-            text = recognizer.recognize_google(audio_data)
+            # Use Sphinx for offline speech recognition
+            text = recognizer.recognize_sphinx(audio_data)
             print("Transcription: ", text)
             return text
     except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
+        print("Sphinx could not understand audio")
     except sr.RequestError as e:
-        print(f"Could not request results; {e}")
+        print(f"Could not request results from Sphinx; {e}")
     finally:
         os.remove(tmp_filename)  # Clean up the temporary file.
 
